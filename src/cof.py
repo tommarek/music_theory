@@ -9,9 +9,9 @@ class CircleOfFifths():
         self.notes = self.generate_cof(is_major)
 
     def generate_cof(self, is_major: bool) -> list:
-        shift = const.notes.index('C' if is_major else 'A')
+        shift = const.NOTES.index('C' if is_major else 'A')
         return [
-            const.notes[(semitone + shift) % len(const.notes)]
+            const.NOTES[(semitone + shift) % len(const.NOTES)]
             for semitone in self.semitones
         ]
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from scale_generator import ScaleGenerator
+#from scale_generator import ScaleGenerator
 
 class Scale():
     def __init__(root='C', generator=None, notes=None):
@@ -12,5 +12,3 @@ class Scale():
             self.notes = notes
         elif generator:
             self.notes = generator(root)
-
-
