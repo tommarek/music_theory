@@ -1,22 +1,33 @@
 #!/usr/bin/env python3
 
-from math import pow
+import re
 
-from scale import Scale
+from math import pow
 
 import const
 
-class Note():
+from scale import Scale
 
-    def __init__(self, root, accidentals='', octave=None):
-        self.root = self.set_root(root)
-        self.accidentals = self.set_accidentals(accidentals)
-        self.octave = self.set_octave(octave)
+
+class Note():
+    def __init__(self, name=""):
+        parsed = self._parse_note_name(name)
+        if parsed:
+            self.root = self.set_root(parsed[0])
+            self.accidentals = self.set_accidentals(parsed[1])
+            self.octave = self.set_octave(int(parsed[2]))
+
+    def _parse_note_name(self, name):
+        parsed = re.findall(r'^([a-gA-G])([#|b]*)(\d?)$', name)
+        return parsed[0] if parsed else (None, None, None)
 
     def __str__(self):
         return f"{self.root}{self.accidentals}{self.octave}"
 
     def set_root(self, root):
+        assert isinstance(root, str), "Root has to be a string"
+        assert root.upper() in const.NOTES
+
         return root.upper()
 
     def set_accidentals(self, accidentals):
@@ -32,7 +43,6 @@ class Note():
     def frequency(self):
         if not self.octave:
             return None
-
         note_index = self.get_note_semitones()
         absolute_note_index = note_index + ((self.octave) * 12)
         return const.C0_FREQ * pow(2, (absolute_note_index) / 12)

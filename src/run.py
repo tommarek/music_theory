@@ -10,7 +10,7 @@ print(circle.notes)
 
 print('-----------------')
 
-c4 = Note('C', octave=4)
+c4 = Note('B2')
 
 print(c4)
 print(c4.frequency)

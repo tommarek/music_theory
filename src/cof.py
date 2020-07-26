@@ -2,6 +2,8 @@
 
 import const
 
+from note import Note
+
 class CircleOfFifths():
     semitones = [(i * 7) % 12 for i in range(12)]
 
@@ -11,7 +13,7 @@ class CircleOfFifths():
     def generate_cof(self, is_major: bool) -> list:
         shift = const.NOTES.index('C' if is_major else 'A')
         return [
-            const.NOTES[(semitone + shift) % len(const.NOTES)]
+            Note(const.NOTES[(semitone + shift) % len(const.NOTES)])
             for semitone in self.semitones
         ]
 
